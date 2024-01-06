@@ -68,9 +68,9 @@ namespace ExoScan
         {
             Configuration cfg = new Configuration();
             if (CollectionManagement.HasCollection(CollectionManagement.ActiveCollection()))
-                this.Text = "Collection: " + CollectionManagement.ActiveCollection();
+                ActiveCollectionBox.Text = CollectionManagement.ActiveCollection();
             else
-                this.Text = "No active collection";
+                ActiveCollectionBox.Text = "No Collection";
             if (File.Exists(cfg.TargetListPath))
             {
                 //file exists so populate window accordingly

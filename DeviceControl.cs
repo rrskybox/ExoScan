@@ -19,6 +19,7 @@
 
 
 using System;
+using System.Diagnostics.Eventing.Reader;
 using TheSky64Lib;
 
 namespace ExoScan
@@ -151,6 +152,7 @@ namespace ExoScan
             //
             //First set camera for image reduction
             ccdsoftCamera tsxc = new ccdsoftCamera();
+            ClosedLoopSlew tsx_cl = new ClosedLoopSlew();
             switch (reductionType)
             {
                 case "None":
@@ -162,7 +164,6 @@ namespace ExoScan
             }
 
             ReliableRADecSlew(RA, Dec, name, hasDome);
-            ClosedLoopSlew tsx_cl = new ClosedLoopSlew();
             int clsStatus = 123;
             //If dome, Turn off tracking
             if (hasDome)
@@ -206,24 +207,12 @@ namespace ExoScan
             //else return false;
         }
 
-        public static void ToggleDomeCoupling()
-        {
-            //Uncouple dome tracking, then recouple dome tracking (synchronously)
-            sky6Dome tsxd = new sky6Dome();
-            tsxd.IsCoupled = 0;
-            System.Threading.Thread.Sleep(1000);
-            tsxd.IsCoupled = 1;
-            //Wait for all dome activity to stop
-            while (IsDomeTrackingUnderway()) { System.Threading.Thread.Sleep(1000); }
-            return;
-        }
-
         public static void DomeCouplingOn()
         {
             //Uncouple dome tracking, then recouple dome tracking (synchronously)
 
             sky6Dome tsxd = new sky6Dome();
-            tsxd.IsCoupled = 1;
+            tsxd.setIsCoupledToMountTracking(Convert.ToInt32(true));
             System.Threading.Thread.Sleep(500);
             while (IsDomeTrackingUnderway())
             { System.Threading.Thread.Sleep(1000); }
@@ -234,7 +223,7 @@ namespace ExoScan
         {
             //Uncouple dome tracking, then recouple dome tracking (synchronously)
             sky6Dome tsxd = new sky6Dome();
-            tsxd.IsCoupled = 0;
+            tsxd.setIsCoupledToMountTracking(Convert.ToInt32(false));
             System.Threading.Thread.Sleep(500);
             while (IsDomeTrackingUnderway()) { System.Threading.Thread.Sleep(1000); }
             return;
@@ -319,9 +308,10 @@ namespace ExoScan
                 sky6Dome tsxd = new sky6Dome();
                 try { tsxd.Connect(); }
                 catch { return false; }
-                int cState = tsxd.IsCoupled;
-                if (cState == 0) return false;
-                else return (true); ;
+                if (Convert.ToBoolean(tsxd.isCoupledToMountTracking()))
+                    return true;
+                else
+                    return false;
             }
             set
             {
@@ -329,7 +319,7 @@ namespace ExoScan
                 try { tsxd.Connect(); }
                 catch { return; }
                 //If a connection is set, then make sure the dome is coupled to the telescope slews
-                tsxd.IsCoupled = Convert.ToInt32(true);
+                tsxd.setIsCoupledToMountTracking(Convert.ToInt32(value));
                 return;
             }
         }

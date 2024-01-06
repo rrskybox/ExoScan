@@ -123,16 +123,7 @@ namespace ExoScan
             // If so, doing a IsGotoComplete will throw an Error 212.
             //  Ignore it a wait a few seconds for stuff to clear
 
-            //If using dome, toggle dome coupling:  this appears to clear most Error 123 problems
             bool hasDome = Convert.ToBoolean(cfg.UsesDome);
-            if (hasDome)
-            {
-                sky6Dome tsx_dm = new sky6Dome();
-                tsx_dm.IsCoupled = 0;
-                System.Threading.Thread.Sleep(1000);
-                tsx_dm.IsCoupled = 1;
-            }
-
             //Wait for any Error 123//s to clear
 
             int slewStatus = 0;
@@ -146,7 +137,6 @@ namespace ExoScan
             {
                 LogEntry("Simple slew to target");
                 DeviceControl.ReliableRADecSlew(freshImageRA, freshImageDec, freshImageName, hasDome);
-                slewStatus = DeviceControl.ReliableClosedLoopSlew(freshImageRA, freshImageDec, freshImageName, hasDome, cfg.CLSReduction);
                 LogEntry("Simple slew Complete");
             }
             if (slewStatus == 0)

@@ -115,6 +115,7 @@ namespace ExoScan
             this.ShutDownFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.StageSystemFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.StartUpFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.ActiveCollectionBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.MinAltitudeSetting)).BeginInit();
             this.CollectionGroupBox.SuspendLayout();
             this.ConfigurationGroupBox.SuspendLayout();
@@ -831,6 +832,7 @@ namespace ExoScan
             // TargetTab
             // 
             this.TargetTab.BackColor = System.Drawing.Color.DarkCyan;
+            this.TargetTab.Controls.Add(this.ActiveCollectionBox);
             this.TargetTab.Controls.Add(this.label14);
             this.TargetTab.Controls.Add(this.SwarthmoreButton);
             this.TargetTab.Controls.Add(this.ExoTargetsBox);
@@ -847,7 +849,7 @@ namespace ExoScan
             // 
             this.label14.AutoSize = true;
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(26, 55);
+            this.label14.Location = new System.Drawing.Point(10, 71);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(87, 13);
             this.label14.TabIndex = 25;
@@ -857,7 +859,7 @@ namespace ExoScan
             // 
             this.SwarthmoreButton.BackColor = System.Drawing.Color.LightGreen;
             this.SwarthmoreButton.ForeColor = System.Drawing.Color.Black;
-            this.SwarthmoreButton.Location = new System.Drawing.Point(12, 20);
+            this.SwarthmoreButton.Location = new System.Drawing.Point(13, 36);
             this.SwarthmoreButton.Name = "SwarthmoreButton";
             this.SwarthmoreButton.Size = new System.Drawing.Size(120, 23);
             this.SwarthmoreButton.TabIndex = 24;
@@ -870,9 +872,9 @@ namespace ExoScan
             this.ExoTargetsBox.BackColor = System.Drawing.Color.MediumSpringGreen;
             this.ExoTargetsBox.ForeColor = System.Drawing.Color.Black;
             this.ExoTargetsBox.FormattingEnabled = true;
-            this.ExoTargetsBox.Location = new System.Drawing.Point(12, 74);
+            this.ExoTargetsBox.Location = new System.Drawing.Point(12, 87);
             this.ExoTargetsBox.Name = "ExoTargetsBox";
-            this.ExoTargetsBox.Size = new System.Drawing.Size(121, 251);
+            this.ExoTargetsBox.Size = new System.Drawing.Size(121, 238);
             this.ExoTargetsBox.TabIndex = 23;
             this.ExoTargetsBox.SelectedIndexChanged += new System.EventHandler(this.ExoTargetsBox_SelectedIndexChanged);
             // 
@@ -1187,6 +1189,13 @@ namespace ExoScan
             // 
             this.StartUpFileDialog.FileName = "openFileDialog1";
             // 
+            // ActiveCollectionBox
+            // 
+            this.ActiveCollectionBox.Location = new System.Drawing.Point(13, 8);
+            this.ActiveCollectionBox.Name = "ActiveCollectionBox";
+            this.ActiveCollectionBox.Size = new System.Drawing.Size(120, 20);
+            this.ActiveCollectionBox.TabIndex = 26;
+            // 
             // FormSessionManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1336,6 +1345,7 @@ namespace ExoScan
         private System.Windows.Forms.OpenFileDialog ShutDownFileDialog;
         private System.Windows.Forms.OpenFileDialog StageSystemFileDialog;
         private System.Windows.Forms.OpenFileDialog StartUpFileDialog;
+        private System.Windows.Forms.TextBox ActiveCollectionBox;
     }
 }
 
