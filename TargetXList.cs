@@ -443,7 +443,7 @@ namespace ExoScan
 
             public DateTime LastImagingDate
             {
-                get { return Convert.ToDateTime(xTarget.Element("LastImagingDate").Value); }
+                get { return Convert.ToDateTime(xTarget.Element(LastDateX).Value); }
                 set
                 {
                     if (xTarget.Element(LastDateX) == null)
@@ -456,10 +456,10 @@ namespace ExoScan
             {
                 get
                 {
-                    if (xTarget.Element("StartTransit") == null)
+                    if (xTarget.Element(StartTransitX) == null)
                         return null;
                     else
-                        return Convert.ToDateTime(xTarget.Element("StartTransit").Value);
+                        return Convert.ToDateTime(xTarget.Element(StartTransitX).Value);
                 }
                 set
                 {
@@ -473,10 +473,10 @@ namespace ExoScan
             {
                 get
                 {
-                    if (xTarget.Element("EndTransit") == null)
+                    if (xTarget.Element(EndTransitX) == null)
                         return null;
                     else
-                        return Convert.ToDateTime(xTarget.Element("EndTransit").Value);
+                        return Convert.ToDateTime(xTarget.Element(EndTransitX).Value);
                 }
                 set
                 {

@@ -28,7 +28,7 @@ using WeatherWatch;
 
 namespace ExoScan
 {
-    public partial class FormSessionManager : Form
+    public partial class FormExoScan : Form
     {
         private TargetXList exoList;
         private Logger ss_log = new Logger();
@@ -39,7 +39,7 @@ namespace ExoScan
         //public static FormCreateTargetList fTargetForm;
         //public static FormAutoRun fAutoRunForm;
 
-        public FormSessionManager()
+        public FormExoScan()
         {
             //Initialize application form interfaces
             InitializeComponent();

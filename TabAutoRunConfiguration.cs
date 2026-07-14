@@ -23,7 +23,7 @@ using System.Windows.Forms;
 namespace ExoScan
 {
     //public partial class FormAutoRun
-    public partial class FormSessionManager
+    public partial class FormExoScan
     {
         private DateTime? dusk;
         private DateTime? dawn;

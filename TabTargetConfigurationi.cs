@@ -26,7 +26,7 @@ using System.Windows.Forms;
 namespace ExoScan
 {
     //public partial class FormCreateTargetList : Form
-    public partial class FormSessionManager
+    public partial class FormExoScan
     {
 
         public List<string> tgtZeroBasedFilters;
@@ -70,7 +70,10 @@ namespace ExoScan
             if (CollectionManagement.HasCollection(CollectionManagement.ActiveCollection()))
                 ActiveCollectionBox.Text = CollectionManagement.ActiveCollection();
             else
-                ActiveCollectionBox.Text = "No Collection";
+            {
+                ActiveCollectionBox.Text = "No Target Selected";
+                return;
+            }
             if (File.Exists(cfg.TargetListPath))
             {
                 //file exists so populate window accordingly
@@ -118,23 +121,24 @@ namespace ExoScan
             {
                 //Create collection
                 CollectionManagement.CreateCollection(newTgtName);
-                //Open collection
-                string tgtListPath = CollectionManagement.OpenCollection(newTgtName);
-                try { (ra, dec) = TSX_Resources.FindTarget(newTgtName); }
-                catch
-                {
-                    MessageBox.Show("Look up of target failed");
-                    return;
-                }
-                //Add new target
-                TargetXList.AddToTargetXList(newTgtName, ra, dec, DateTime.Now);
-                //Redraw collection window
-                InitializeCollection();
-                PopulateCollectionBox(newTgtName);
+            }
+            //Open collection
+            string tgtListPath = CollectionManagement.OpenCollection(newTgtName);
+            try { (ra, dec) = TSX_Resources.FindTarget(newTgtName); }
+            catch
+            {
+                MessageBox.Show("Look up of target failed");
                 return;
             }
-            else
-                return;
+            (DateTime strans, DateTime etrans) = TSX_Resources.FindTransitTimes(newTgtName);
+            //Delete old target data, if any
+            TargetXList.DeleteFromTargetXList(newTgtName);
+            //Add new target
+            TargetXList.AddToTargetXList(newTgtName, ra, dec, DateTime.Now, strans, etrans);
+            //Redraw collection window
+            InitializeCollection();
+            PopulateCollectionBox(newTgtName);
+            return;
         }
 
         private void AddSwarthmoreTargetButton_Click(object sender, EventArgs e)
@@ -223,8 +227,10 @@ namespace ExoScan
         {
             if (TargetListDropDown.SelectedItem != null)
                 CollectionManagement.OpenCollection(TargetListDropDown.SelectedItem.ToString());
+            else
+                return;
             SwarthmoreButton.Enabled = true;
-            TargetListDropDown.Items.Clear();
+            //TargetListDropDown.Items.Clear();
             FilterListBox.Items.Clear();
             fwZeroBasedFilters = Filters.IniFilterNameSet().ToList();
             //Add to list box
@@ -245,7 +251,6 @@ namespace ExoScan
                         if (fwZeroBasedFilters[f].Contains(tgtZeroBasedFilters[t]))
                             FilterListBox.SetItemChecked(f, true);
             }
-
             return;
         }
 

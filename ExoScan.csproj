@@ -28,7 +28,7 @@
     <ProductName>ExoScan</ProductName>
     <PublisherName>TSXToolKit</PublisherName>
     <SuiteName>TSXToolKit</SuiteName>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -174,11 +174,11 @@
     <Compile Include="Logger.cs" />
     <Compile Include="TSX_Process.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="FormSessionManager.cs">
+    <Compile Include="FormExoScan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSessionManager.Designer.cs">
-      <DependentUpon>FormSessionManager.cs</DependentUpon>
+    <Compile Include="FormExoScan.Designer.cs">
+      <DependentUpon>FormExoScan.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -193,8 +193,8 @@
     <EmbeddedResource Include="FormSampleCatalog.resx">
       <DependentUpon>FormSampleCatalog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSessionManager.resx">
-      <DependentUpon>FormSessionManager.cs</DependentUpon>
+    <EmbeddedResource Include="FormExoScan.resx">
+      <DependentUpon>FormExoScan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTargetImageAnalysis.resx">
       <DependentUpon>FormTargetImageAnalysis.cs</DependentUpon>

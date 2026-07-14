@@ -85,7 +85,6 @@ namespace ExoScan
 
             //Check for an existing xml file.  If so, then load it.
             //  Otherwise create an empty file.
-
             if (File.Exists(cfg.ColorListPath))
                 colorListRecordX = XElement.Load(cfg.ColorListPath);
             else
@@ -184,9 +183,10 @@ namespace ExoScan
 
         public List<Filters.ActiveFilter> GetIndexFilters()
         {
+            Configuration cfg = new Configuration();
+
             List<Filters.ActiveFilter> flist = new List<Filters.ActiveFilter>();
             //Read in filter list
-            Configuration cfg = new Configuration();
             //Reload color list filters
             colorListRecordX = XElement.Load(cfg.ColorListPath);
             foreach (XElement xp in colorListRecordX.Elements(ImageFilterX))
@@ -197,7 +197,8 @@ namespace ExoScan
                     FilterIndex = Convert.ToInt32(xp.Element(FilterIndexX).Value)
                 };
                 flist.Add(ap);
-            };
+            }
+            ;
             IEnumerable<Filters.ActiveFilter> iList = flist;
             return iList.Distinct().ToList();
         }

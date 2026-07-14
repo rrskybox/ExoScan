@@ -1,7 +1,7 @@
 ﻿
 namespace ExoScan
 {
-    partial class FormSessionManager
+    partial class FormExoScan
     {
         /// <summary>
         /// Required designer variable.

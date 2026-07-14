@@ -58,13 +58,16 @@ namespace ExoScan
             //  Return the path to the collection's target list)
             Configuration cfg = new Configuration();
             cfg.CollectionFolderPath = cfg.ExoScanFolderPath + "\\" + collectionName;
-            cfg.TargetListPath = cfg.CollectionFolderPath + "\\" + "ExoScanList.xml";
-            cfg.ColorListPath = cfg.CollectionFolderPath + "\\" + "ColorList.xml";
-            cfg.ImageBankFolder = cfg.CollectionFolderPath + "\\" + "Image Bank";
-            cfg.StarchiveFilePath = cfg.CollectionFolderPath + "\\" + "Starchive.xml";
-            cfg.LogFolder = cfg.CollectionFolderPath + "\\" + "Logs";
             if (!Directory.Exists(cfg.CollectionFolderPath))
                 CreateCollection(collectionName);
+            else
+            {
+                cfg.TargetListPath = cfg.CollectionFolderPath + "\\" + "ExoScanList.xml";
+                cfg.ColorListPath = cfg.CollectionFolderPath + "\\" + "ColorList.xml";
+                cfg.ImageBankFolder = cfg.CollectionFolderPath + "\\" + "Image Bank";
+                cfg.StarchiveFilePath = cfg.CollectionFolderPath + "\\" + "Starchive.xml";
+                cfg.LogFolder = cfg.CollectionFolderPath + "\\" + "Logs";
+            }
             return cfg.TargetListPath;
         }
 
@@ -77,7 +80,8 @@ namespace ExoScan
             foreach (string fd in Directory.EnumerateDirectories(basepath))
             {
                 Path.GetFileName(fd);
-                cList.Add(Path.GetFileName(fd));
+                if (!(fd == "Logs"))
+                    cList.Add(Path.GetFileName(fd));
             }
             return cList;
         }

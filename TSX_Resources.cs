@@ -136,6 +136,18 @@ namespace ExoScan
             return (RA, Dec);
         }
 
+        public static (DateTime strTransit, DateTime endTransit) FindTransitTimes(string targetName)
+        {
+            sky6StarChart tsx_sc = new sky6StarChart();
+            sky6ObjectInformation tsxoi = new sky6ObjectInformation();
+            tsx_sc.Find(targetName);
+            tsxoi.Property(Sk6ObjectInformationProperty.sk6ObjInfoProp_DB_FIELD_9);
+            DateTime strTransit = Convert.ToDateTime(tsxoi.ObjInfoPropOut);
+            tsxoi.Property(Sk6ObjectInformationProperty.sk6ObjInfoProp_DB_FIELD_10);
+            DateTime endTransit = Convert.ToDateTime(tsxoi.ObjInfoPropOut);
+            return (strTransit, endTransit);
+        }
+
         public static (DateTime? dusk, DateTime? dawn) GetTwilight()
         {
             //Get the astronomical twilights from TSX
@@ -143,8 +155,15 @@ namespace ExoScan
             DateTime? dusk = null;
             DateTime? dawn = null;
 
+
             sky6StarChart tsxs = new sky6StarChart();
             sky6ObjectInformation tsxo = new sky6ObjectInformation();
+            //Save current target in Find function, if any, and restore it at the end of this function
+            string currentTarget = null;
+            tsxo.Property(Sk6ObjectInformationProperty.sk6ObjInfoProp_NAME1);
+            currentTarget = tsxo.ObjInfoPropOut;
+
+                        //Look up sun today
             try
             { tsxs.Find("Sun"); }
             catch
@@ -158,6 +177,10 @@ namespace ExoScan
 
             tsxo.Property(Sk6ObjectInformationProperty.sk6ObjInfoProp_TWIL_ASTRON_END);
             dusk = date + TimeSpan.FromHours(tsxo.ObjInfoPropOut);
+
+            //Reset Find to prior search, if any
+            tsxs.Find(currentTarget);
+
             return (dusk, dawn);
         }
     }
